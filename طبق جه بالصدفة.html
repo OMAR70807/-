@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طبق جه بالصدفة🌙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background: url("Sofrt Ramdan.jpeg") no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    direction: rtl;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* طبقة تغميق */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 0;
+}
+
+h1 {
+    position: relative;
+    z-index: 1;
+    font-size: 45px;
+    margin-bottom: 60px;
+    text-shadow: 0 0 25px gold;
+}
+
+.buttons {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 100px;
+}
+
+.circle-btn {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #d4af37, #b8860b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+}
+
+.circle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 60px gold;
+}
+
+.result {
+    position: relative;
+    z-index: 1;
+    margin-top: 50px;
+    font-size: 28px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.show {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .circle-btn {
+        width: 160px;
+        height: 160px;
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>دوس وشوف حظك 🌙✨</h1>
+
+<div class="buttons">
+    <div class="circle-btn" onclick="getFtar()">فطارك إيه النهارده؟</div>
+    <div class="circle-btn" onclick="getDessert()">الحلو إيه؟</div>
+</div>
+
+<div class="result" id="result"></div>
+
+<script>
+
+// 🍽️ الفطار
+const ramadanFood = [
+"مكرونة بشاميل","كشري","محشي ورق عنب","محشي كوسة","محشي كرنب",
+"فراخ مشوية","بط محمر","حمام محشي","ملوخية","طاجن بامية",
+"كباب حلة","فتة لحمة","فول مدمس","طعمية","مسقعة",
+"سمك مقلي","جمبري مقلي","شوربة لسان عصفور","سمبوسة لحمة",
+"رقاق باللحمة","فطير مشلتت","سلطة طحينة","بابا غنوج",
+"بطاطس محمرة","أرز معمر","كبدة اسكندراني","سجق بلدي",
+"شاورما فراخ","شاورما لحمة","فاهيتا فراخ"
+];
+
+// 🍮 الحلويات
+const ramadanDesserts = [
+"كنافة","قطايف","أم علي","بسبوسة","مهلبية",
+"أرز بلبن","جيلي","كاسترد","بقلاوة","بلح الشام",
+"لقمة القاضي","غريبة","كحك","بيتي فور","براونيز",
+"تشيز كيك","مولتن كيك","تراميسو","هريسة","عيش السرايا",
+"ليزي كيك","كنافة بالمانجا","قطايف نوتيلا","آيس كريم",
+,"كرواسون شوكولاتة","تورتة شوكولاتة",
+"كريب شوكولاتة","فراولة بالكريمة","زلابية"
+];
+
+let spinning = false;
+
+function spin(array, label) {
+    if (spinning) return;
+    spinning = true;
+
+    const result = document.getElementById("result");
+    let count = 0;
+
+    const interval = setInterval(() => {
+        const randomItem = array[Math.floor(Math.random() * array.length)];
+        result.innerHTML = " 🌙جاري الاختيار... <br>" + randomItem;
+        result.style.opacity = 1;
+        count++;
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(interval);
+        const finalItem = array[Math.floor(Math.random() * array.length)];
+        result.innerHTML = label + finalItem + " 🎉";
+        result.style.transform = "scale(1.2)";
+        
+        setTimeout(() => {
+            result.style.transform = "scale(1)";
+            spinning = false;
+        }, 500);
+
+    }, 3500); // مدة الأنيميشن 3.5 ثانية
+}
+
+function getFtar() {
+    spin(ramadanFood, "🍽️ فطارك النهارده: ");
+}
+
+function getDessert() {
+    spin(ramadanDesserts, "🍮 الحلو الليلة: ");
+}
+
+</script>
+
+
+</body>
+</html>
